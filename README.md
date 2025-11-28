@@ -68,42 +68,34 @@ A deep learning framework for taxonomic classification of environmental DNA (eDN
 
 ---
 
-## 📁 Repository Structure
-
-```
 deep-sea-edna-classifier/
 │
-├── 📂 notebooks/
-│   ├── 01_data_preprocessing.ipynb       # Data loading and preprocessing
-│   ├── 02_baseline_model_training.ipynb  # Baseline CNN training
-│   └── 03_improved_model_training.ipynb  # Improved model with all enhancements
+├── 📂 models/
+│   ├── __init__.py
+│   ├── ensemble_classifier.py
+│   ├── hierarchical_classifier.py
+│   ├── improved_cnn_classifier.py
+│   ├── kmer_features.py
+│
+├── 📂 results_improved/
+│   ├── abundance.png
+│   ├── best_improved_model.h5
+│   ├── class_distribution.png
+│   ├── class_performance.png
+│   ├── confusion_matrix.png
+│   ├── final_results.json
+│   ├── hybrid_model.h5
+│   ├── improved_cnn_classifier.h5
+│   ├── model_comparison.csv
+│   ├── training_history.png
 │
 ├── 📂 scripts/
-│   ├── preprocess.py                     # Data preprocessing utilities
-│   ├── train.py                          # Training script
-│   └── predict.py                        # Batch prediction script
+│   ├── prepare_dataset.py
+│   ├── train_improved.py
 │
-├── 📂 models/
-│   ├── baseline_cnn.h5                   # Baseline model weights
-│   ├── improved_cnn.h5                   # Attention-ResNet weights
-│   ├── hybrid_cnn_kmer.h5                # Best model weights
-│   └── autoencoder.h5                    # Novelty detection model
-│
-├── 📂 results/
-│   ├── training_history.png              # Training curves
-│   ├── confusion_matrix.png              # Confusion matrix
-│   ├── class_performance.png             # Per-class F1 scores
-│   ├── class_distribution.png            # Dataset distribution
-│   └── model_comparison.csv              # Performance comparison
-│
-├── 📂 docs/
-│   ├── deep_sea_edna_paper.pdf           # Full research paper
-│   ├── technical_report.pdf              # Detailed technical report
-│   └── summary_report.pdf                # One-page summary
-│
-├── 📄 requirements.txt                   # Python dependencies
-├── 📄 LICENSE                            # MIT License
-└── 📄 README.md                          # This file
+├── 📄 README.md
+├── 📄 edna_improved_technical_report.pdf
+
 ```
 
 ---
