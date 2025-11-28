@@ -1,0 +1,4 @@
+Model,Accuracy,Top-3 Acc,F1 (macro)
+Improved CNN,0.9149,0.9669,0.8188
+Ensemble,0.9572,0.9810,0.8773
+Hybrid CNN+K-mer,0.9697,0.9875,0.9295
