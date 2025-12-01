@@ -2,7 +2,6 @@
 
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![TensorFlow 2.13+](https://img.shields.io/badge/tensorflow-2.13+-orange.svg)](https://tensorflow.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 A deep learning framework for taxonomic classification of environmental DNA (eDNA) sequences from deep-sea environments. Achieves **96.97% accuracy** on 129 phylum-level taxa using a hybrid CNN architecture with attention mechanisms and k-mer frequency features.
 
