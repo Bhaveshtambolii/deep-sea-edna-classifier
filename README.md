@@ -67,14 +67,23 @@ A deep learning framework for taxonomic classification of environmental DNA (eDN
 
 ---
 
+## 📁 Repository Structure
+
+```
 deep-sea-edna-classifier/
+│
+├── 📂 data/
+│   ├── 📂 augmented/          # Augmented training sequences
+│   ├── 📂 ncbi/               # NCBI rRNA downloads (16S, 18S)
+│   ├── 📂 processed/          # Preprocessed & encoded datasets
+│   └── 📂 raw/                # Raw FASTA files (SILVA, NCBI)
 │
 ├── 📂 models/
 │   ├── __init__.py
 │   ├── ensemble_classifier.py
 │   ├── hierarchical_classifier.py
 │   ├── improved_cnn_classifier.py
-│   ├── kmer_features.py
+│   └── kmer_features.py
 │
 ├── 📂 results_improved/
 │   ├── abundance.png
@@ -86,16 +95,17 @@ deep-sea-edna-classifier/
 │   ├── hybrid_model.h5
 │   ├── improved_cnn_classifier.h5
 │   ├── model_comparison.csv
-│   ├── training_history.png
+│   └── training_history.png
 │
 ├── 📂 scripts/
 │   ├── prepare_dataset.py
-│   ├── train_improved.py
+│   └── train_improved.py
 │
 ├── 📄 README.md
-├── 📄 edna_improved_technical_report.pdf
-
+└── 📄 edna_improved_technical_report.pdf
 ```
+
+> **Note:** The `data/` folder is included in the repository structure but the actual dataset files must be downloaded separately (see [Dataset](#-dataset) section below).
 
 ---
 
@@ -103,7 +113,7 @@ deep-sea-edna-classifier/
 
 ### ⚠️ Dataset Not Included
 
-The training dataset is **not included** in this repository due to size constraints. You need to download it separately.
+The training dataset files are **not included** in this repository due to size constraints. The `data/` folder structure is provided; you need to populate it by downloading the data separately.
 
 ### Download Instructions
 
@@ -118,8 +128,7 @@ wget https://www.arb-silva.de/fileadmin/silva_databases/release_138.1/Exports/SI
 # Extract
 gunzip SILVA_138.1_SSURef_NR99_tax_silva.fasta.gz
 
-# Move to data directory
-mkdir -p data/raw
+# Move to data/raw directory
 mv SILVA_138.1_SSURef_NR99_tax_silva.fasta data/raw/
 ```
 
@@ -131,24 +140,25 @@ Download from NCBI using Entrez:
 # Install Entrez Direct
 sh -c "$(curl -fsSL ftp://ftp.ncbi.nlm.nih.gov/entrez/entrezdirect/install-edirect.sh)"
 
-# Download 16S rRNA (Prokaryotes)
+# Download 16S rRNA (Prokaryotes) → saves to data/ncbi/
 esearch -db nucleotide -query "16S ribosomal RNA[Title] AND (bacteria[filter] OR archaea[filter])" | \
-  efetch -format fasta > data/raw/16S_ribosomal_RNA.fasta
+  efetch -format fasta > data/ncbi/16S_ribosomal_RNA.fasta
 
-# Download 18S rRNA (Eukaryotes)
+# Download 18S rRNA (Eukaryotes) → saves to data/ncbi/
 esearch -db nucleotide -query "18S small subunit ribosomal RNA[Title] AND eukaryota[filter]" | \
-  efetch -format fasta > data/raw/SSU_eukaryote_rRNA.fasta
+  efetch -format fasta > data/ncbi/SSU_eukaryote_rRNA.fasta
 ```
 
-#### 3. Combined Dataset
+#### 3. Preprocess & Combine
 
-After downloading, combine the databases:
+After downloading, run the preprocessing script to populate `data/processed/` and `data/augmented/`:
 
 ```bash
-python scripts/preprocess.py \
+python scripts/prepare_dataset.py \
     --silva data/raw/SILVA_138.1_SSURef_NR99_tax_silva.fasta \
-    --ncbi data/raw/ \
+    --ncbi data/ncbi/ \
     --output data/processed/ \
+    --augmented data/augmented/ \
     --min-samples 10 \
     --max-samples 350
 ```
@@ -298,13 +308,13 @@ print(f"Confidence: {confidence:.2%}")
 ## 📈 Results
 
 ### Training History
-![Training History](results/training_history.png)
+![Training History](results_improved/training_history.png)
 
 ### Confusion Matrix
-![Confusion Matrix](results/confusion_matrix.png)
+![Confusion Matrix](results_improved/confusion_matrix.png)
 
 ### Per-Class Performance
-![Class Performance](results/class_performance.png)
+![Class Performance](results_improved/class_performance.png)
 
 ---
 
